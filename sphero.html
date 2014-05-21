@@ -1,0 +1,180 @@
+<!--DOCTYPE html-->
+<html>
+	<head>
+		<title>Sphero hack</title>
+		<link rel="stylesheet" type="text/css" href="eleganticons.css" />
+		<style type="text/css">
+
+			body {
+				padding: 40px 20px;	
+				font-family: 'Open Sans';
+			}
+
+			h1 {
+				color: #666;
+				letter-spacing: 1.5px;
+			}
+
+			#start_calibration, #stop_calibration {
+				float: left;
+				padding: 15px 20px;
+				margin: 30px 15px;
+				border-radius: 5px;
+				background-color: #f39c12;
+				color: #FFFFFF;
+				text-transform: uppercase;
+				-webkit-transition: background-color 0.2s ease-out;
+				transition: background-color 0.2s ease-out;
+			}
+
+			#start_calibration:active, #stop_calibration:active {
+				background-color: #d35400;
+			}
+
+			#start_calibration:hover, #stop_calibration:hover {
+				cursor: pointer;
+				background-color: #e67e22;
+				-webkit-transition: background-color 0.2s ease-in;
+				transition: background-color 0.2s ease-in;
+			}
+
+			#arrows {
+				width: 80%;
+				margin-top: 30px;
+				margin-left: 10%;
+				float: left;
+				height: 300px;
+				color: #BBB;
+				-webkit-transition: color 0.08s ease-out;
+				transition: color 0.08s ease-out;
+			}
+
+			#arrows .up {
+				float: left;
+				width: 40%;
+				margin-left: 30%;
+				font-size: 3em;
+			}
+
+			#arrows .left {
+				float: left;
+				width: 30%;
+				margin-left: 10%;
+				font-size: 3em;
+			}
+
+			#arrows .right {
+				float: left;
+				width: 30%;
+				margin-left: 10%;
+				font-size: 3em;
+			}
+
+			#arrows .down {
+				float: left;
+				width: 40%;
+				margin-left: 30%;
+				font-size: 3em;
+			}
+
+			#arrows .active {
+				color: #e74c3c;
+				-webkit-transition: color 0.08s ease-in;
+				transition: color 0.08s ease-in;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<h1>Sphero!</h1>
+		
+		<a id="start_calibration">Start Calibration</a>
+		<a id="stop_calibration">Stop Calibration</a>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		<div id="arrows">
+			<span class="up arrow_triangle-up_alt"></span>
+			<span class="left arrow_triangle-left_alt"></span>
+			<span class="right arrow_triangle-right_alt"></span>
+			<span class="down arrow_triangle-down_alt"></span>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script>
+			var socket = io.connect();
+			$arrows = $('#arrows');
+			
+			$(document).ready(function() {
+
+				$('#start_calibration').on('click', function() {
+					socket.emit('sphero_start_calibrate');
+				});
+
+				$('#stop_calibration').on('click', function() {
+					socket.emit('sphero_stop_calibrate');
+				});
+
+				$(document)
+					.keydown(function(e) {
+						switch(e.which) {
+							/* Direction keys */
+							case 37:
+								e.preventDefault();
+								socket.emit('sphero_go_left', {});
+								$arrows.children('.left').addClass('active');
+								break;
+							case 38:
+								e.preventDefault();
+								socket.emit('sphero_go_up', {});
+								$arrows.children('.up').addClass('active');
+								break;
+							case 39:
+								e.preventDefault();
+								socket.emit('sphero_go_right', {});
+								$arrows.children('.right').addClass('active');
+								break;
+							case 40:
+								e.preventDefault();
+								socket.emit('sphero_go_down', {});
+								$arrows.children('.down').addClass('active');
+								break
+
+							/* Colour keys */
+							case 82: 	// RED
+								socket.emit('sphero_change_color', { 
+									'color' : '#FF0000'
+								});
+								break;
+							case 71: 	// GREEN
+								socket.emit('sphero_change_color', { 
+									'color' : '#00FF00'
+								});
+								break;
+							case 66: 	// BLUE
+								socket.emit('sphero_change_color', { 
+									'color' : '#0000FF'
+								});
+								break;
+							default:
+								break;
+						}
+					})
+					.keyup(function(e) {
+						if(e.which >= 37 && e.which <=40) {
+							socket.emit('sphero_stop');
+							$arrows.children().removeClass('active');
+						}
+					});
+			});
+
+			
+
+		</script>
+	</body>
+</html>
