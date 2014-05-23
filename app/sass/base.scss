@@ -1,0 +1,69 @@
+// Import bootstrap
+@import "vendor/bootstrap";
+
+// Import variables
+@import "variables";
+
+/* ------------------------------
+ * Debug styles -----------------
+ * --------------------------- */
+ .debug {
+ 	position: absolute;
+ }
+
+// ==============================
+// Custom styles here 
+// ============================== 
+
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	float: left;
+	background-color: #FCFCFC;
+	font-family: $body-font; 
+
+}
+
+.navbar {
+	margin: 0;
+}
+
+.canvas, .sidebar {
+	float: left;
+	height: 100%;
+	position: relative;
+	padding: 40px 0;
+	overflow: auto;
+}
+
+.canvas {
+	width: 70%;
+}
+
+.sidebar {
+	width: 30%;
+	background-color: #FFF;
+}
+
+.connected-spheros {
+	padding-left: 0;
+	list-style-type: none;
+}
+
+.sphero-instruction {
+	position: relative;
+	margin-top: 15px;
+	padding: 5px 10px;
+	border-radius: 4px;
+	background-color: #DDD;
+	color: white;
+	text-align: center;
+
+	&:hover {
+		cursor: pointer;
+	}
+}

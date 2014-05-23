@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sphero hack</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/eleganticons.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/fullcalendar/fullcalendar.css" />
+
+		<link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		</nav>
+		
+		<div class="canvas">
+			<div class="col-xs-8 col-xs-offset-2">
+
+				<div id='timeline'></div>
+
+			</div>
+		</div>
+
+		<div class="sidebar">
+
+			<div class="sphero-connections col-xs-12">
+				<input type="text" class="sphero-name form-control" placeholder="Add a Sphero by name..." />
+				<br />
+				<br />
+				<button id="activate" class="btn btn-default">Activate Spheros</button>
+				<button id="deactivate" class="btn btn-default">Deactivate Spheros</button>
+				<button id="play" class="btn btn-default btn-primary">Play</button>
+
+
+				<ul class="connected-spheros">
+				</ul>
+
+				<hr />
+			</div>
+
+			<div id='sphero-calibration' class="col-xs-12">
+				<h4>Sphero Calibration</h4>
+				<button id="start-calibration" class="btn btn-default">Start Calibration</button>
+				<button id="stop-calibration" class="btn btn-default">Stop Calibration</button>
+
+				<hr />
+			</div>
+
+			<div id='sphero-instructions' class="col-xs-12">
+				<h4>Sphero Instructions</h4>
+				<div class="row">
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="0">Up</div>
+				</div>
+				<div class="row">
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="90">Right</div>
+				</div>
+				<div class="row">
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="180">Down</div>
+				</div>
+				<div class="row">	
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="270">Left</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<!-- Javascript here -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="/static/js/jquery-ui.custom.min.js"></script>
+		<script src="/static/js/moment.min.js"></script>
+		<script src="/static/js/fullcalendar/fullcalendar.js"></script>
+		<script src="/static/js/spheromanager.js"></script>
+		<script src="/static/js/sphero-timeline.js"></script>
+		<script src="/static/js/main.js"></script>
+
+	</body>
+</html>

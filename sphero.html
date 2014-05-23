@@ -1,4 +1,4 @@
-<!--DOCTYPE html-->
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Sphero hack</title>
@@ -111,7 +111,7 @@
 			$arrows = $('#arrows');
 			
 			$(document).ready(function() {
-
+				console.log(socket);
 				$('#start_calibration').on('click', function() {
 					socket.emit('sphero_start_calibrate');
 				});
@@ -143,7 +143,7 @@
 								e.preventDefault();
 								socket.emit('sphero_go_down', {});
 								$arrows.children('.down').addClass('active');
-								break
+								break;
 
 							/* Colour keys */
 							case 82: 	// RED
@@ -167,8 +167,12 @@
 					})
 					.keyup(function(e) {
 						if(e.which >= 37 && e.which <=40) {
-							socket.emit('sphero_stop');
 							$arrows.children().removeClass('active');
+						}
+
+						if(e.which == 32) {
+							e.preventDefault();
+							socket.emit('sphero_stop', {});
 						}
 					});
 			});
