@@ -6,6 +6,7 @@ var Cylon = require('cylon');
 var http = require('http');
 var url = require('url');
 var io = require('socket.io');
+var Redis = require('redis');
 
 var SpheroFactory = require('./sphero.js');
 var Router = require('./utils/router.js');
@@ -24,6 +25,7 @@ var server = http.createServer(function(req, resp) {
 
 server.listen(7890);
 var io = io.listen(server).set('log level', 1);
+var client = Redis.createClient();
 
 var clients = {};
 
@@ -41,8 +43,28 @@ io.on('connection', function(socket) {
 		Cylon.robot(sphero);
 	});
 
+	/* Starting spheros */
 	socket.on('activate-spheros', function() {
 		Cylon.start();
+	});
+
+	/* Save events */
+	socket.on('save_events', function(data) {
+		var events = data.events;
+		client.set('last_save', JSON.stringify(events), Redis.print);
+		socket.emit('saved_events');
+	});
+
+	/* Restore events */
+	socket.on('restore_events', function() {
+		client.get('last_save', function(err, data) {
+			if(err) {
+				socket.emit('restore_error');
+			} else {
+				var events = JSON.parse(data.toString());
+				socket.emit('restored_events', {events: events});
+			}
+		})
 	});
 
 

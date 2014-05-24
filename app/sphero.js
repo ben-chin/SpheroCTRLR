@@ -2,7 +2,7 @@ var sleep = require('sleep');
 var _ = require('underscore');
 var Cylon = require('cylon');
 
-var DEFAULT_SPEED = 100
+var DEFAULT_SPEED = 90
 
 /* ------------------------
  * SPHERO
@@ -49,12 +49,22 @@ var Sphero = (function() {
 
 							var moves = data.moves;
 							var i = 0;
-							every((1).second(), function() {
+							every(data.time_unit, function() {
 								if(moves[i]) {
-									my.sphero.roll(
-										DEFAULT_SPEED, 
-										moves[i].heading
-									);
+									console.log(moves[i].params);
+									
+									if(moves[i].params.move) {
+										console.log('hoi');
+										my.sphero.roll(
+											DEFAULT_SPEED, 
+											moves[i].params.heading
+										);
+									} else {
+										my.sphero.stop();
+									}
+									if(moves[i].params.color) {
+										my.sphero.setRGB(moves[i].params.color);
+									}
 								} else {
 									my.sphero.stop();
 								}

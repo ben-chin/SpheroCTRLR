@@ -49,9 +49,36 @@ body {
 	background-color: #FFF;
 }
 
+.activation-buttons {
+	padding: 20px 0;
+}
+
 .connected-spheros {
-	padding-left: 0;
+	width: 100%;
+	padding: 5px 15px;
 	list-style-type: none;
+
+	li {
+		width: 50%;
+		padding: 8px 15px;
+		text-align: center;
+		border-radius: 5px;
+		background-color: #6CB3FF;
+		color: white;
+		letter-spacing: 2px;
+		font-weight: 600;
+	}
+}
+
+.action-buttons {
+	padding: 10px;
+
+	button {
+		border: none;
+		padding-left: 30px;
+		padding-right: 30px;
+		margin: 0 10px;
+	}
 }
 
 .sphero-instruction {
@@ -66,4 +93,13 @@ body {
 	&:hover {
 		cursor: pointer;
 	}
+}
+
+#time-unit {
+	margin: 15px 0;
+}
+
+.modal-content, .modal-body, .modal-footer {
+	float: left;
+	width: 100%;
 }

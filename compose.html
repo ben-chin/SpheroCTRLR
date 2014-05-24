@@ -11,7 +11,29 @@
 	<body>
 
 		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="action-buttons pull-right">
+					<button id="play" class="btn btn-default btn-primary">Play</button>
+					<button id="save" class="btn btn-default">Save</button>
+					<button id="restore" class="btn btn-default">Restore</button>
+				</div>
+			</div>
 		</nav>
+
+		<!-- Sphero moves modal -->
+		<div class="modal fade" id="sphero-move-picker">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Pick a move</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Select from below</p>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 		
 		<div class="canvas">
 			<div class="col-xs-8 col-xs-offset-2">
@@ -26,22 +48,24 @@
 			<div class="sphero-connections col-xs-12">
 				<input type="text" class="sphero-name form-control" placeholder="Add a Sphero by name..." />
 				<br />
-				<br />
-				<button id="activate" class="btn btn-default">Activate Spheros</button>
-				<button id="deactivate" class="btn btn-default">Deactivate Spheros</button>
-				<button id="play" class="btn btn-default btn-primary">Play</button>
-
-
+				<h4>Connected Spheros</h4>
+				<hr />
 				<ul class="connected-spheros">
 				</ul>
 
 				<hr />
+				<div class="activation-buttons">
+					<button id="activate" class="btn btn-default">Activate Spheros</button>
+					<button id="deactivate" class="btn btn-default">Deactivate Spheros</button>
+				</div>
 			</div>
 
 			<div id='sphero-calibration' class="col-xs-12">
 				<h4>Sphero Calibration</h4>
+				<hr />
 				<button id="start-calibration" class="btn btn-default">Start Calibration</button>
 				<button id="stop-calibration" class="btn btn-default">Stop Calibration</button>
+				<input type="text" id="time-unit" class="form-control" placeholder="Time per slot in secs" />
 
 				<hr />
 			</div>
@@ -49,25 +73,32 @@
 			<div id='sphero-instructions' class="col-xs-12">
 				<h4>Sphero Instructions</h4>
 				<div class="row">
-					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="0">Up</div>
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-move="1" data-heading="0">Up</div>
 				</div>
 				<div class="row">
-					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="90">Right</div>
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-move="1" data-heading="90">Right</div>
 				</div>
 				<div class="row">
-					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="180">Down</div>
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-move="1" data-heading="180">Down</div>
 				</div>
 				<div class="row">	
-					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-heading="270">Left</div>
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-move="1" data-heading="270">Left</div>
+				</div>
+				<div class="row">	
+					<div class="sphero-instruction col-xs-4 col-xs-offset-4" data-move="0">Freeze</div>
 				</div>
 			</div>
 
+			<br /><br />
+			<br /><br />
+			<br /><br />
 
 		</div>
 
 		<!-- Javascript here -->
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="/static/js/bootstrap.js"></script>
 		<script src="/static/js/jquery-ui.custom.min.js"></script>
 		<script src="/static/js/moment.min.js"></script>
 		<script src="/static/js/fullcalendar/fullcalendar.js"></script>
