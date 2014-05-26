@@ -98,6 +98,8 @@ $(document).ready(function() {
 				start: e.start,
 				end: e.end || null,
 				allDay: e.allDay,
+				backgroundColor: e.backgroundColor,
+				borderColor: e.borderColor,
 				sphero: e.sphero
 			};
 		});

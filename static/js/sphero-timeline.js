@@ -75,6 +75,10 @@ var timeline_opts
 	    		});
 	    },
 	    eventRender: function(event, $elem) {
+	    	$elem.css({
+	    		'background-color': event.backgroundColor,
+	    		'border-color': event.borderColor
+	    	});
 	    	$elem.on('dblclick', function(e) {
 	    		$('#timeline').fullCalendar('removeEvents', event._id); // Hacking private var for unqiue id
 	    	});
