@@ -1,3 +1,4 @@
 app/sass/.sass-cache
 dump.rdb
-static/css/base.css
+static/css/base.css*
+node_modules/
